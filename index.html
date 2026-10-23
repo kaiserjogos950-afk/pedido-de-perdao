@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Você me perdoa? 💌</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    padding: 22px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #fff0f4, #fff8e9); color: #47323a;
+  }
+  .card {
+    width: min(100%, 440px); background: rgba(255,255,255,.92);
+    border: 1px solid #f4d6df; border-radius: 26px; padding: 30px 22px;
+    text-align: center; box-shadow: 0 18px 50px #9c53651c;
+  }
+  .heart { font-size: 42px; }
+  h1 { font-size: clamp(1.65rem, 7vw, 2.2rem); margin: 12px 0; }
+  p { line-height: 1.6; }
+  .buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 24px 0 8px; min-height: 52px; }
+  button { border: 0; border-radius: 999px; padding: 13px 24px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+  #yes { background: #d94e79; color: white; }
+  #no { background: #f0e8eb; color: #614a52; transition: transform .12s ease; }
+  .small { color: #8b747c; font-size: .88rem; }
+  #letter { display: none; text-align: left; background: #fff8fa; border-radius: 18px; padding: 20px; margin-top: 20px; border: 1px solid #f4d6df; }
+  #letter h2 { text-align: center; }
+  .sign { text-align: right; margin-top: 18px; }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="heart">💌</div>
+  <section id="question">
+    <h1>Você me perdoa?</h1>
+    <p>Prometo que dessa vez a única coisa que vou bloquear é a saudade de ficar tudo bem. 🥹</p>
+    <div class="buttons">
+      <button id="yes" type="button">Sim ❤️</button>
+      <button id="no" type="button">Não 🙈</button>
+    </div>
+    <p class="small">Sem pressão, tá? Quero só te mostrar que sinto muito.</p>
+  </section>
+  <section id="letter" aria-live="polite">
+    <h2>Uma cartinha pra ti ❤️</h2>
+    <p>Amiga, me desculpa de verdade pela brincadeira de te bloquear. Eu fiz sem pensar que tu poderia ficar chateada, mas entendo que não foi legal.</p>
+    <p>Não fiz por mal e não queria te magoar. Gosto muito da nossa amizade e queria que a gente ficasse bem de novo.</p>
+    <p>Esse chocolatinho é só um pequeno gesto de carinho, não uma cobrança pra tu me perdoar na hora. Respeito teu tempo e espero que, quando tu estiver pronta, a gente possa conversar. ❤️</p>
+    <p class="sign">Com carinho,<br>teu amigo 🤝</p>
+  </section>
+</main>
+<script>
+const no = document.getElementById('no');
+const yes = document.getElementById('yes');
+const question = document.getElementById('question');
+const letter = document.getElementById('letter');
+let dodges = 0;
+function dodge() {
+  dodges++;
+  const x = Math.round((Math.random() * 180) - 90);
+  const y = Math.round((Math.random() * 100) - 50);
+  no.style.transform = `translate(${x}px, ${y}px)`;
+  const messages = ['Eita, escapou 😅', 'Tem certeza? 🙈', 'O botão tá nervoso kkk'];
+  no.textContent = messages[Math.min(dodges - 1, messages.length - 1)];
+}
+no.addEventListener('pointerenter', dodge);
+no.addEventListener('click', dodge);
+no.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); }, {passive:false});
+yes.addEventListener('click', () => {
+  question.style.display = 'none';
+  letter.style.display = 'block';
+});
+</script>
+</body>
+</html>
